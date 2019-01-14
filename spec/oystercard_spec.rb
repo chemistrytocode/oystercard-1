@@ -12,8 +12,9 @@ describe Oystercard do
 
   it 'deducts fare from my card' do
     subject.top_up(10)
-    subject.deduct(5)
-    expect(subject.balance).to eq 5
+    subject.touch_in
+    subject.touch_out
+    expect(subject.balance).to eq 9
   end
 
   describe "maximum balance" do
@@ -41,6 +42,10 @@ describe Oystercard do
     it "shouldn't be able to touch in if balance is below minimum balance" do
       subject.top_up(Oystercard::MINIMUM_BALANCE - 0.01)
       expect{subject.touch_in}.to raise_error "can't touch in if balance less than #{Oystercard::MINIMUM_BALANCE}"
+    end
+    it 'should deduct minimum balance when touching out' do
+      subject.top_up(5)
+      expect {subject.touch_out}.to change{subject.balance}.by(-Oystercard::MINIMUM_BALANCE)
     end
   end
 

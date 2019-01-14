@@ -15,16 +15,13 @@ attr_reader :balance, :MAXIMUM_BALANCE
     @balance += amount
   end
 
-  def deduct(amount)
-    @balance -= amount
-  end
-
   def touch_in
     fail "can't touch in if balance less than #{MINIMUM_BALANCE}" unless got_money?
     @status = true
   end
 
   def touch_out
+    deduct(MINIMUM_BALANCE)
     @status = false
   end
 
@@ -36,5 +33,9 @@ attr_reader :balance, :MAXIMUM_BALANCE
 
   def got_money?
     balance >= MINIMUM_BALANCE
+  end
+
+  def deduct(amount)
+    @balance -= amount
   end
 end
