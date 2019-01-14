@@ -9,7 +9,11 @@ attr_reader :balance, :MAXIMUM_BALANCE
   end
 
   def top_up(amount)
-    fail "can't top up above #{MAXIMUM_BALANCE}" if amount + @balance >  MAXIMUM_BALANCE 
+    fail "can't top up above #{MAXIMUM_BALANCE}" if amount + @balance >  MAXIMUM_BALANCE
     @balance += amount
+  end
+
+  def deduct(amount)
+    @balance -= amount
   end
 end
