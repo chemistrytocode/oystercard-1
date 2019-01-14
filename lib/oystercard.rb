@@ -1,6 +1,7 @@
 
 class Oystercard
 
+MINIMUM_BALANCE = 1
 MAXIMUM_BALANCE = 90
 attr_reader :balance, :MAXIMUM_BALANCE
 
@@ -19,6 +20,7 @@ attr_reader :balance, :MAXIMUM_BALANCE
   end
 
   def touch_in
+    fail "can't touch in if balance less than #{MINIMUM_BALANCE}" unless got_money?
     @status = true
   end
 
@@ -30,4 +32,9 @@ attr_reader :balance, :MAXIMUM_BALANCE
     @status
   end
 
+  private
+
+  def got_money?
+    balance >= MINIMUM_BALANCE
+  end
 end
