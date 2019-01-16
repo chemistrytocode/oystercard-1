@@ -26,24 +26,6 @@ describe 'user_stories' do
     expect { newcard.top_up(5) }.to raise_error msg
   end
 
-  # In order to pay for my journey
-  # As a customer
-  # I need my fare deducted from my card
-  #
-  # In order to get through the barriers
-  # As a customer
-  # I need to touch in and out
-
-  it "should update a card as 'in use' when touching in" do
-    newcard.touch_in('Waterloo')
-    expect(newcard.in_journey?).to eq true
-  end
-
-  it "should update a card as 'not in use' when touching in" do
-    newcard.touch_in('Waterloo')
-    newcard.touch_out('Southwark')
-    expect(newcard.in_journey?).to eq false
-  end
 
   #
   # In order to pay for my journey
@@ -65,14 +47,6 @@ describe 'user_stories' do
     expect { newcard.touch_out('Old St') }.to change { newcard.balance }.by(-1)
   end
 
-  # In order to pay for my journey
-  # As a customer
-  # I need to know where I've travelled from
-
-  it 'should tell me which station i have travelled from' do
-    newcard.touch_in('Waterloo')
-    expect(newcard.entry_station).to eq('Waterloo')
-  end
 
   # In order to know where I have been
   # As a customer
@@ -80,8 +54,8 @@ describe 'user_stories' do
 
   it 'should return all of the previous trips' do
     newcard.touch_in('Waterloo')
-    newcard.touch_out('Southwark')
-    expect(newcard.journeys).to eq [{ entry_station: 'Waterloo', exit_station: 'Southwark' }]
+    newcard.touch_out('Kings Cross')
+    expect(newcard.journey_history).to eq [{ entry_station: 'Waterloo', exit_station: 'Kings Cross' }]
   end
 
   # In order to know how far I have travelled
