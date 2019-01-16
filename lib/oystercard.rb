@@ -9,7 +9,6 @@ class Oystercard
 
   def initialize(journey = Journey)
     @balance = 0
-    @journey_history = []
     @journey = journey.new
     @touched = false
   end
@@ -29,15 +28,17 @@ class Oystercard
 
   def touch_out(station)
     journey.stop_journey(station)
-    add_to_history
+    # add_to_history
     deduct
     @touched = false
     @journey = Journey.new
   end
 
-  def add_to_history
-    @journey_history << { entry_station: @journey.entry_station, exit_station: @journey.exit_station }
-  end
+  # def add_to_history
+  #   @journey_history << { entry_station: @journey.entry_station, exit_station: @journey.exit_station }
+  # end
+
+  # methods : journey_log_start, journey_log_finish, journeys(returns journey history array)
 
   private
 

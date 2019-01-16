@@ -18,11 +18,6 @@ describe Oystercard do
       expect(subject.balance).to eq(0)
     end
 
-
-    it 'should have an empty journey_history array' do
-      expect(@card.journey_history).to be_empty
-    end
-
     it 'should initialize with touched set to false' do
       expect(@card.touched).to eq false
     end
@@ -71,15 +66,14 @@ describe Oystercard do
 
   end
 
-  describe '#journey_history' do
-    it 'should respond to journeys_history' do
-      expect(subject).to respond_to(:journey_history)
-    end
+  # describe '#journey_history' do
+  #   it 'should respond to journeys_history' do
+  #     expect(subject).to respond_to(:journey_history)
+  #   end
 
-    it 'should return a journey array with a journey' do
-      @card.touch_in(entry_station)
-      @card.touch_out(exit_station)
-      expect(@card.journey_history[0]).to eq ({entry_station: entry_station, exit_station: exit_station})
-    end
+    # it 'should return a journey array with a journey' do
+    #   @card.touch_in(entry_station)
+    #   @card.touch_out(exit_station)
+    #   expect(@card.journey_history[0]).to eq ({entry_station: entry_station, exit_station: exit_station})
+    # end
   end
-end
