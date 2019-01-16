@@ -1,30 +1,42 @@
 require 'oystercard'
 
 describe Oystercard do
-  let(:entry_station) { double :station, name: "Waterloo", zone: 1 }
-  let(:exit_station) { double :station, name: "Kings Cross", zone: 1 }
-  let(:journey) { { entry_station: entry_station, exit_station: exit_station } }
+  let(:entry_station)   { double :station, name: "Waterloo", zone: 1 }
+  let(:exit_station)    { double :station, name: "Kings Cross", zone: 1 }
+  let(:journey)         { { entry_station: entry_station, exit_station: exit_station } }
+
+  before (:each) do
+    @card = Oystercard.new
+    @card.top_up(10)
+  end
+  # let(:card)            { described_class.new }
+  # let(:subject_w_money) { card.top_up(10) }
+
 
   describe 'defaults' do
     it 'should have a balance of zero' do
       expect(subject.balance).to eq(0)
     end
 
+
     it 'should have an empty journey_history array' do
-      expect(subject.journey_history).to be_empty
+      expect(@card.journey_history).to be_empty
+    end
+
+    it 'should initialize with touched set to false' do
+      expect(@card.touched).to eq false
     end
   end
 
   describe '#top_up' do
     it 'should allow the user to top up their oystercard' do
-      subject.top_up(5)
-      expect(subject.balance).to eq(5)
+      expect(@card.balance).to eq(10)
     end
 
     it 'should not allow user to top up if the end balance is > Max balance' do
       msg = "Max balance £#{Oystercard::MAX_BALANCE} will be exceeded"
-      subject.top_up(87)
-      expect { subject.top_up(5) }.to raise_error msg
+      subject.top_up(Oystercard::MAX_BALANCE)
+      expect { subject.top_up(1) }.to raise_error msg
     end
   end
 
@@ -34,15 +46,29 @@ describe Oystercard do
       msg = 'Cannot touch in: Not enough funds'
       expect { subject.touch_in(entry_station) }.to raise_error msg
     end
+
+    it 'should set touched to true' do
+      @card.touch_in(entry_station)
+      expect(@card.touched).to eq true
+    end
+
+    it 'should charge the card a penalty if touched_in twice' do
+      @card.touch_in(entry_station)
+      expect { @card.touch_in(entry_station) }.to change { @card.balance }.by(-6)
+    end
   end
 
   describe '#touch_out' do
 
     it 'should deduct the fare from the card' do
-      subject.top_up(5)
-      subject.touch_in(entry_station)
-      expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-1)
+      @card.touch_in(entry_station)
+      expect { @card.touch_out(exit_station) }.to change { @card.balance }.by(-1)
     end
+
+    it 'should charge the card a penalty if touched_out w/o touch_in' do
+      expect { @card.touch_out(exit_station) }.to change { @card.balance }.by(-6)
+    end
+
   end
 
   describe '#journey_history' do
@@ -51,10 +77,9 @@ describe Oystercard do
     end
 
     it 'should return a journey array with a journey' do
-      subject.top_up(5)
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
-      expect(subject.journey_history[0]).to eq ({entry_station: entry_station, exit_station: exit_station})
+      @card.touch_in(entry_station)
+      @card.touch_out(exit_station)
+      expect(@card.journey_history[0]).to eq ({entry_station: entry_station, exit_station: exit_station})
     end
   end
 end
