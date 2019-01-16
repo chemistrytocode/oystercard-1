@@ -17,12 +17,8 @@ describe Oystercard do
     it 'should have a balance of zero' do
       expect(subject.balance).to eq(0)
     end
-
-    it 'should initialize with touched set to false' do
-      expect(@card.touched).to eq false
-    end
   end
-
+  
   describe '#top_up' do
     it 'should allow the user to top up their oystercard' do
       expect(@card.balance).to eq(10)
@@ -40,11 +36,6 @@ describe Oystercard do
     it 'should raise an error if touching in without the minimum balance' do
       msg = 'Cannot touch in: Not enough funds'
       expect { subject.touch_in(entry_station) }.to raise_error msg
-    end
-
-    it 'should set touched to true' do
-      @card.touch_in(entry_station)
-      expect(@card.touched).to eq true
     end
 
     it 'should charge the card a penalty if touched_in twice' do

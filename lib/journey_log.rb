@@ -13,6 +13,7 @@ class JourneyLog
     @journey.start_journey(station)
   end
 
+
 # def add_to_history
 #   @journey_history << { entry_station: @journey.entry_station, exit_station: @journey.exit_station }
 # end

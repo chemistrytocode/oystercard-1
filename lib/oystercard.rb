@@ -10,7 +10,6 @@ class Oystercard
   def initialize(journey = Journey)
     @balance = 0
     @journey = journey.new
-    @touched = false
   end
 
   def top_up(value)
@@ -20,8 +19,7 @@ class Oystercard
   end
 
   def touch_in(station)
-    deduct if touched
-    @touched = true
+    deduct if !@journey.entry_station.nil?
     raise 'Cannot touch in: Not enough funds' if balance < MIN_BALANCE
     journey.start_journey(station)
   end
@@ -30,7 +28,6 @@ class Oystercard
     journey.stop_journey(station)
     # add_to_history
     deduct
-    @touched = false
     @journey = Journey.new
   end
 
