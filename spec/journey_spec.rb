@@ -19,12 +19,12 @@ describe Journey do
   end
 
   describe '#fare' do
-    it 'should return 6 on unsuccessful_journey' do
-      allow(subject).to receive(:unsuccessful_journey?) {true}
+    it 'should return 6 on incomplete_journey' do
+      allow(subject).to receive(:incomplete_journey?) {true}
       expect(subject.fare).to eq 6
     end
     it 'should return 1 on successful_journey' do
-      allow(subject).to receive(:unsuccessful_journey?) {false}
+      allow(subject).to receive(:incomplete_journey?) {false}
       expect(subject.fare).to eq 1
     end
   end

@@ -15,19 +15,20 @@ class Journey
   end
 
   def fare
-    return PENALTY_CHARGE if unsuccessful_journey?
+    return PENALTY_CHARGE if incomplete_journey?
     STANDARD_CHARGE
   end
+
+  def incomplete_journey?
+    entry_station.nil? || exit_station.nil?
+  end
+end
 
   private
 
   STANDARD_CHARGE = 1
   PENALTY_CHARGE = 6
 
-  def unsuccessful_journey?
-    entry_station.nil? || exit_station.nil?
-  end
-end
 
 # card = Osyercard.new
 #           Journey.new

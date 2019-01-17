@@ -13,15 +13,25 @@ class JourneyLog
     @journey.start_journey(station)
   end
 
+  def finish(station)
+    @journey.stop_journey(station)
+  end
 
-# def add_to_history
-#   @journey_history << { entry_station: @journey.entry_station, exit_station: @journey.exit_station }
-# end
+  def add_to_history
+    @journey_history << { entry_station: @journey.entry_station, exit_station: @journey.exit_station }
+  end
 
+  def price
+    @journey.fare
+  end
 
+  def current_journey
+    return journey if journey.incomplete_journey?
+    @journey = Journey.new
+  end
 end
 
-
+# #
 # card = Oystercard.new
 #                                       @journeyLog calls journey
 #     creates  @journey
