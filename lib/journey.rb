@@ -28,14 +28,3 @@ end
 
   STANDARD_CHARGE = 1
   PENALTY_CHARGE = 6
-
-
-# card = Osyercard.new
-#           Journey.new
-# card.top_up(10)
-# station = Station.new
-# card.touch_in(station)
-#     journey.start_journey
-# card.touch_out(station)
-#     journey.stop_journey
-#     deduct

@@ -27,16 +27,10 @@ class Oystercard
 
   def touch_out(station)
     journey_log.finish(station)
-    # add_to_history
     deduct
+    journey_log.add_to_history
     journey_log.current_journey
   end
-
-  # def add_to_history
-  #   @journey_history << { entry_station: @journey.entry_station, exit_station: @journey.exit_station }
-  # end
-
-  # methods : journey_log_start, journey_log_finish, journeys(returns journey history array)
 
   private
 

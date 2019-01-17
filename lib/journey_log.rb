@@ -31,16 +31,11 @@ class JourneyLog
   end
 end
 
-# #
+
+
 # card = Oystercard.new
-#                                       @journeyLog calls journey
-#     creates  @journey
-# card.touch_in(station)
-#                                         @journeyLog.start
-#         @journey.start
-# card.touch_out(station)
-#         @journey.end                    @journeylog.end
-#         @journey.fare                     @journey.fare
-#   oyster card interacts with journey      oystercard deals only with journeylog, which interacts with journey class
-#                                             journeylog middle layer
-#                                             oystercard doesnt interact with journey
+# card.top_up(10)
+# KX = Station.new("KX", 1)
+# WL = Station.new("WL", 1)
+# OS = Station.new("OS", 1)
+# PD = Station.new("PD", 1)

@@ -7,7 +7,6 @@ describe JourneyLog do
   let(:journey_class)   { double :journey_class, new: journey }
   let(:journey)         { double :journey, entry_station: entry_station, exit_station: exit_station }
 
-
   describe '#new' do
     it 'should initialize journey_log with an empty journey_history array' do
       expect(subject.journey_history).to be_empty
