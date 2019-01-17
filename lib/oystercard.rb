@@ -46,6 +46,6 @@ end
 card = Oystercard.new
 card.top_up(10)
 KX = Station.new("KX", 1)
-WL = Station.new("WL", 1)
+WL = Station.new("WL", 5)
 card.touch_in(KX)
 card.touch_out(WL)

@@ -1,8 +1,8 @@
 require 'journey'
 
 describe Journey do
-  let(:start_station) {double :station}
-  let(:end_station) {double :station}
+  let(:start_station)   { double :station, name: "Waterloo", zone: 1 }
+  let(:end_station)    { double :station, name: "Kings Cross", zone: 2 }
 
   describe '#start_journey' do
     it 'should set entry_station to station' do
@@ -23,9 +23,10 @@ describe Journey do
       allow(subject).to receive(:incomplete_journey?) {true}
       expect(subject.fare).to eq 6
     end
-    it 'should return 1 on successful_journey' do
-      allow(subject).to receive(:incomplete_journey?) {false}
-      expect(subject.fare).to eq 1
+    it 'should return a fare of 2 when travelling between zone 1 & 2' do
+      subject.start_journey(start_station)
+      subject.stop_journey(end_station)
+      expect(subject.fare).to eq 2
     end
   end
 end

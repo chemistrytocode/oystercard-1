@@ -1,3 +1,5 @@
+require_relative 'station'
+
 class Journey
   attr_reader :entry_station, :exit_station
 
@@ -16,15 +18,19 @@ class Journey
 
   def fare
     return PENALTY_CHARGE if incomplete_journey?
-    STANDARD_CHARGE
+    fare_calculator
   end
 
   def incomplete_journey?
     entry_station.nil? || exit_station.nil?
   end
-end
 
   private
 
   STANDARD_CHARGE = 1
   PENALTY_CHARGE = 6
+
+  def fare_calculator
+    (entry_station.zone - exit_station.zone).abs + STANDARD_CHARGE
+  end
+end
