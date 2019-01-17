@@ -18,7 +18,7 @@ describe Oystercard do
       expect(subject.balance).to eq(0)
     end
   end
-  
+
   describe '#top_up' do
     it 'should allow the user to top up their oystercard' do
       expect(@card.balance).to eq(10)
@@ -56,15 +56,4 @@ describe Oystercard do
     end
 
   end
-
-  # describe '#journey_history' do
-  #   it 'should respond to journeys_history' do
-  #     expect(subject).to respond_to(:journey_history)
-  #   end
-
-    # it 'should return a journey array with a journey' do
-    #   @card.touch_in(entry_station)
-    #   @card.touch_out(exit_station)
-    #   expect(@card.journey_history[0]).to eq ({entry_station: entry_station, exit_station: exit_station})
-    # end
-  end
+end

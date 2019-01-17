@@ -24,7 +24,7 @@ describe Journey do
       expect(subject.fare).to eq 6
     end
     it 'should return a fare of 2 when travelling between zone 1 & 2' do
-      allow(subject).to receive(:incomplete_journey?) { false }
+      allow(subject).to receive(:incompletgite_journey?) { false }
       allow(subject).to receive(:fare_calculator) { 2 }
       expect(subject.fare).to eq 2
     end
