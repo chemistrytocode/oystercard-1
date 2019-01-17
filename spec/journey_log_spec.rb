@@ -4,6 +4,7 @@ describe JourneyLog do
 
   let(:entry_station)   { double :station, name: "Waterloo", zone: 1 }
   let(:exit_station)    { double :station, name: "Kings Cross", zone: 1 }
+  let(:journey_class)   { double :journey_class, new: journey }
   let(:journey)         { double :journey, entry_station: entry_station, exit_station: exit_station }
 
 
@@ -29,13 +30,9 @@ describe JourneyLog do
 
   describe '#add_to_history' do
     it 'should add a journey to the journey history array' do
-      subject.start(entry_station)
-      # allow(subject).to receive(:start).and_return("WGC")
-      # allow(subject).to receive(:finish).and_return("KX")
-      subject.finish(exit_station)
-      subject.add_to_history
-      # expect(subject.journey_history).to include ({:entry_station=>'WGC', :exit_station=>'KX'})
-      expect(subject.journey_history).to include ({:entry_station=>entry_station, :exit_station=>exit_station})
+      jlog = JourneyLog.new(journey_class)
+      jlog.add_to_history
+      expect(jlog.journey_history).to include ({:entry_station=>entry_station, :exit_station=>exit_station})
     end
   end
 end
