@@ -8,9 +8,9 @@ class Oystercard
   MIN_BALANCE = 1
   MIN_CHARGE = 1
 
-  def initialize(journey = JourneyLog)
+  def initialize(journeylog = JourneyLog)
     @balance = 0
-    @journey_log = journey.new
+    @journey_log = journeylog.new
   end
 
   def top_up(value)
@@ -42,3 +42,10 @@ class Oystercard
     @balance -= value
   end
 end
+
+card = Oystercard.new
+card.top_up(10)
+KX = Station.new("KX", 1)
+WL = Station.new("WL", 1)
+card.touch_in(KX)
+card.touch_out(WL)

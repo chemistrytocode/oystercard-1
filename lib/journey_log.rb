@@ -29,13 +29,8 @@ class JourneyLog
     return journey if journey.incomplete_journey?
     @journey = Journey.new
   end
+
+  def journeys
+    @journey_history.dup
+  end
 end
-
-
-
-# card = Oystercard.new
-# card.top_up(10)
-# KX = Station.new("KX", 1)
-# WL = Station.new("WL", 1)
-# OS = Station.new("OS", 1)
-# PD = Station.new("PD", 1)

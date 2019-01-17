@@ -5,7 +5,8 @@ describe JourneyLog do
   let(:entry_station)   { double :station, name: "Waterloo", zone: 1 }
   let(:exit_station)    { double :station, name: "Kings Cross", zone: 1 }
   let(:journey_class)   { double :journey_class, new: journey }
-  let(:journey)         { double :journey, entry_station: entry_station, exit_station: exit_station }
+  let(:journey)         { double :journey, entry_station: entry_station, exit_station: exit_station, incomplete_journey?: true }
+
 
   describe '#new' do
     it 'should initialize journey_log with an empty journey_history array' do
@@ -32,6 +33,20 @@ describe JourneyLog do
       jlog = JourneyLog.new(journey_class)
       jlog.add_to_history
       expect(jlog.journey_history).to include ({:entry_station=>entry_station, :exit_station=>exit_station})
+    end
+  end
+
+  describe '#current_journey' do
+    it 'Should return current journey if unsuccessful' do
+      complete = JourneyLog.new(journey_class)
+      complete.current_journey
+      expect(complete.current_journey).to eq journey
+    end
+  end
+
+  describe '#journeys' do
+    it 'Should return a copy of the journey history variable' do
+      expect(subject.journeys).to eq []
     end
   end
 end
